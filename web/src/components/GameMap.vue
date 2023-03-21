@@ -1,5 +1,5 @@
 <template>
-    <TheChessboard @board-created="(api) => (boardAPI = api)" style="width: 400px" :board-config="boardConfig"  />
+    <TheChessboard @draw="handleDraw" @board-created="(api) => (boardAPI = api)" style="width: 400px" :board-config="boardConfig"  />
 
     <h4 id="changecnt">Change Counter:0</h4>
     <h4 id="operator">Operator:White</h4>
@@ -21,6 +21,11 @@ export default{
     },
     setup(){
         let changecnt=0;
+
+
+        function handleDraw() {
+            alert('Draw');
+        }
 
         const boardAPI = ref();
         const boardConfig = {
@@ -69,6 +74,7 @@ export default{
             changecnt,
             boardConfig,
             boardAPI,
+            handleDraw,
         }
     }
 }
