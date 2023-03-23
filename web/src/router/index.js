@@ -8,6 +8,8 @@ import UserAccountRegisterView from '../views/user/account/UserAccountRegisterVi
 
 import NotFound from '../views/error/NotFound.vue';
 
+import store from "../store/index";
+
 
 const routes = [
   {
@@ -19,36 +21,57 @@ const routes = [
     path: "/pk/",
     name: "pk_index",
     component: PkIndexView,
+    meta:{
+      requestAuth: true,
+    },
   },
   {
     path: "/record/",
     name: "record_index",
     component: RecordIndexView,
+    meta:{
+      requestAuth: true,
+    },
   },
   {
     path: "/ranklist/",
     name: "ranklist_index",
     component: RankListIndexView,
+    meta:{
+      requestAuth: true,
+    },
   },
   {
     path: "/user/account/login/",
     name: "user_account_login",
     component: UserAccountLoginView,
+    meta:{
+      requestAuth: false,
+    },
   },
   {
     path: "/user/account/register/",
     name: "user_account_register",
     component: UserAccountRegisterView,
+    meta:{
+      requestAuth: false,
+    },
   },
   {
     path: "/user/bot/",
     name: "user_bot_index",
     component: UserBotIndexView,
+    meta:{
+      requestAuth: true,
+    },
   },
   {
     path: "/404/",
     name: "404",
     component: NotFound,
+    meta:{
+      requestAuth: false,
+    },
   },
   {
     path: "/:catchAll(.*)",
@@ -61,4 +84,35 @@ const router = createRouter({
   routes
 })
 
+
+router.beforeEach((to, from, next) => {
+
+  let flag = 1;
+  const jwt_token = localStorage.getItem("jwt_token");
+
+  if (jwt_token) {
+    store.commit("updateToken", jwt_token);
+    store.dispatch("getinfo", {
+      success() {
+      },
+      error() {
+        alert("token无效，请重新登录！");
+        router.push({ name: 'user_account_login' });
+      }
+    })
+  } else {
+    flag = 2;
+  }
+
+  if (to.meta.requestAuth && !store.state.user.is_login) {
+    if (flag === 1) {
+      next();
+    } else {
+      alert("请先进行登录！");
+      next({name: "user_account_login"});
+    }
+  } else {
+    next();
+  }
+})
 export default router
