@@ -1,5 +1,7 @@
 package com.chess.backend.controller.pk;
 
+import com.chess.backend.common.BaseResponse;
+import com.chess.backend.common.ResultUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,10 +14,10 @@ import java.util.Map;
 @RequestMapping("/pk/")
 public class BotInfoController {
     @RequestMapping("getbotinfo/")
-    public Map<String,String> getBotInfo(){
+    public BaseResponse<Map<String,String>> getBotInfo(){
         Map<String,String> bot1=new HashMap<>();
         bot1.put("name","apple");
         bot1.put("rating","1500");
-        return bot1;
+        return ResultUtils.success(bot1);
     }
 }
