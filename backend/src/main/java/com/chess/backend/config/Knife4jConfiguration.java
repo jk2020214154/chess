@@ -25,8 +25,8 @@ public class Knife4jConfiguration {
     public Docket defaultApi2() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("springboot-init")
-                        .description("springboot-init")
+                        .title("chess")
+                        .description("chess")
                         .termsOfServiceUrl("https://github.com/jk2020214154/chess")
                         .contact(new Contact("chess", "https://github.com/jk2020214154/chess", "xxxxxxxxx@qq.com"))
                         .version("1.0")
