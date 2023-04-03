@@ -1,4 +1,4 @@
-package com.chess.backend.utils.Chess;
+package com.chess.backend.utils.Algorithm;
 
 import java.util.List;
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class Search {
         Move checkmate_move = null;
         Move best_move = null;
         for(int depth = 1; depth <= Data.depth; depth++) {
-            java.lang.Thread.batch_run(root.children_board);
+            Thread.batch_run(root.children_board);
             //
             int cut_depth = 1;
             int cut_width = (int)Math.ceil(Data.width / Math.pow(2, depth - 1));

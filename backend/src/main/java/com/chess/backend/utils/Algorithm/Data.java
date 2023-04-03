@@ -1,4 +1,4 @@
-package com.chess.backend.utils.Chess;
+package com.chess.backend.utils.Algorithm;
 
 import java.util.Arrays;
 import java.util.List;
