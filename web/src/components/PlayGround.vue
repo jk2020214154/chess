@@ -1,6 +1,7 @@
 <template>
-    <div class="playground">
-        <GameMap />
+    <div >
+            <GameMap />
+        
 
     </div>
 </template>
@@ -21,11 +22,6 @@ export default{
 
 <style scoped>
 
-div.playground{
-    width: 60vw;
-    height: 80vh;
-    background-color: lightblue;
-    margin: 40px auto;
-}
+
 
 </style>
