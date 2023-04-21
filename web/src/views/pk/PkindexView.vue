@@ -99,10 +99,11 @@ export default{
         }
 
         function handleCheckmate(isMated) {
+            
             if (isMated === 'w') {
-                alert('Black wins!');
+                //alert('Black wins!');
             } else {
-                alert('White wins!');
+                //alert('White wins!');
             }
         
         }
@@ -158,9 +159,11 @@ export default{
                 document.getElementById('operator').innerHTML="Operator:"+"White";
                 document.getElementById("operator").style.color="White";
                 //console.log(from,"  ",to,"-----2");
-                boardAPI.value.board.move(from, to);
                 
+                boardAPI.value.board.move(from, to);
                 boardAPI.value.game.move({from: from, to: to});
+
+
 
                 //console.log(boardAPI.value.game);
 
@@ -182,11 +185,13 @@ export default{
                 if(changecnt%2===0)
                 {
                     //console.log("你输了");
+                    alert('Black wins!');
                     store.commit("updateResult","lose");
                 }
                 else
                 {
                     //console.log("你赢了");
+                    alert('White wins!');
                     store.commit("updateResult","win");
                 }
                 setTimeout(() => {
@@ -201,7 +206,7 @@ export default{
             
             setTimeout(() => {
                     store.commit("updateStatus","gameing");
-                
+                    changecnt=0;
                 },200);
 
         }

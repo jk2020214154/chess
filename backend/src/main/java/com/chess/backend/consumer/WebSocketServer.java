@@ -74,7 +74,7 @@ public class WebSocketServer {
 
             String from=from_to.substring(0,2);
 
-            String to=from_to.substring(2);
+            String to=from_to.substring(2,4);
             System.out.println(from+" "+to);
 
             JSONObject respGame=new JSONObject();
