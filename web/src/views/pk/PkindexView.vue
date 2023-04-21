@@ -182,18 +182,21 @@ export default{
             
             if(boardAPI.value.getIsGameOver()===true)
             {
-                if(changecnt%2===0)
-                {
-                    //console.log("你输了");
-                    alert('Black wins!');
-                    store.commit("updateResult","lose");
-                }
-                else
-                {
-                    //console.log("你赢了");
-                    alert('White wins!');
-                    store.commit("updateResult","win");
-                }
+             
+                setTimeout(() => {
+                    if(changecnt%2===0)
+                    {
+                        //console.log("你输了");
+                        alert('Black wins!');
+                        store.commit("updateResult","lose");
+                    }
+                    else
+                    {
+                        //console.log("你赢了");
+                        alert('White wins!');
+                        store.commit("updateResult","win");
+                    }
+                },1000);
                 setTimeout(() => {
                     store.commit("updateStatus","gamed");
                 
