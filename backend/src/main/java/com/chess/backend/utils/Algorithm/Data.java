@@ -13,8 +13,8 @@ public class Data {
     public static Board board;
     public static Side side;
     public static int depth = 4;
-    public static int width = 16;
-    public static int pool_size = 16;
+    public static int width = 8;
+    public static int pool_size = 8;
     public static Map<PieceType, Float> piece_score = new HashMap<>();
     static {
         piece_score.put(PieceType.PAWN, 10.0F);

@@ -42,7 +42,7 @@ export default{
                 store.commit("updateResult","");
                 store.commit("updateStatus","ungameing");
                 
-                }, 2000);
+                }, 300);
 
         }
 

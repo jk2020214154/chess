@@ -120,87 +120,96 @@ export default{
                 return ;
             
 
-            changecnt++;
+            setTimeout(() => {
+                changecnt++;
 
-            document.getElementById('changecnt').innerHTML="Change Counter:"+changecnt;
+                document.getElementById('changecnt').innerHTML="Change Counter:"+changecnt;
 
-            if(changecnt%2===1)
-            {
+                if(changecnt%2===1)
+                {
 
-                document.getElementById('operator').innerHTML="Operator:"+"Black";
-                document.getElementById("operator").style.color="Black";
-               //console.log(from,"  ",to,"-----1");
-                store.commit("updateFen",boardAPI.value.getFen());
 
-                store.state.pk.socket.send(JSON.stringify({
-                        fen: store.state.pk.fen,
-                        id: store.state.user.id,
-                }));
-                //console.log(store.state.pk.fen);
-                //boardAPI.value.setPosition(store.state.pk.fen);
-                boardAPI.value.board.move(from, to);
-                //boardAPI.value.game.move({from: from, to: to});
-                //console.log(boardAPI.value.game.fen());
+                //console.log(from,"  ",to,"-----1");
+                    store.commit("updateFen",boardAPI.value.getFen());
 
-                store.commit("updateFen",boardAPI.value.getFen());
+                    store.state.pk.socket.send(JSON.stringify({
+                            fen: store.state.pk.fen,
+                            id: store.state.user.id,
+                    }));
+                    //console.log(store.state.pk.fen);
+                    //boardAPI.value.setPosition(store.state.pk.fen);
+
+                    boardAPI.value.board.move(from, to);
+                    //boardAPI.value.game.move({from: from, to: to});
+                    //console.log(boardAPI.value.game.fen());
+
+                    store.commit("updateFen",boardAPI.value.getFen());
+                    
+                    //console.log(store.state.pk.fen+"********");
+
+                    //boardAPI.value.setPosition(store.state.pk.fen);
+
+                    document.getElementById('operator').innerHTML="Operator:"+"Black";
+                    document.getElementById("operator").style.color="Black";
+
+
+                }
+                else
+                {
+
+                    //console.log(to);
+
+                    //console.log(from,"  ",to,"-----2");
+
+                    boardAPI.value.game.move({from: from, to: to });
+                    
+                    boardAPI.value.board.move(from, to);
+                    
+
+
+
+                    //console.log(boardAPI.value.game);
+
+                    
+                    store.commit("updateFen",boardAPI.value.getFen());
+                    
+                    boardAPI.value.setPosition(store.state.pk.fen);
+
+                    //console.log("------"+store.state.pk.fen);
+                    document.getElementById('operator').innerHTML="Operator:"+"White";
+                    document.getElementById("operator").style.color="White";
+
+                }
+
+                //console.log(boardAPI.value.getIsGameOver(),boardAPI.value.getIsStalemate());
                 
-                //console.log(store.state.pk.fen+"********");
-
-                //boardAPI.value.setPosition(store.state.pk.fen);
-
-
-            }
-            else
-            {
-
-                document.getElementById('operator').innerHTML="Operator:"+"White";
-                document.getElementById("operator").style.color="White";
-                //console.log(to);
-
-                //console.log(from,"  ",to,"-----2");
+                if(boardAPI.value.getIsGameOver()===true)
+                {
                 
-                boardAPI.value.board.move(from, to);
-                boardAPI.value.game.move({from: from, to: to});
+                    setTimeout(() => {
+                        if(changecnt%2===0)
+                        {
+                            //console.log("你输了");
+                            alert('Black wins!');
+                            store.commit("updateResult","lose");
+                        }
+                        else
+                        {
+                            //console.log("你赢了");
+                            alert('White wins!');
+                            store.commit("updateResult","win");
+                        }
+                    },1000);
+                    setTimeout(() => {
+                        store.commit("updateStatus","gamed");
+                    
+                    }, 1500);
+                    
+                }
+        },500);
 
 
 
-                //console.log(boardAPI.value.game);
-
-                
-                store.commit("updateFen",boardAPI.value.getFen());
-                
-                boardAPI.value.setPosition(store.state.pk.fen);
-
-                //console.log("------"+store.state.pk.fen);
-                
-
-            }
-
-            //console.log(boardAPI.value.getIsGameOver(),boardAPI.value.getIsStalemate());
-            
-            if(boardAPI.value.getIsGameOver()===true)
-            {
-             
-                setTimeout(() => {
-                    if(changecnt%2===0)
-                    {
-                        //console.log("你输了");
-                        alert('Black wins!');
-                        store.commit("updateResult","lose");
-                    }
-                    else
-                    {
-                        //console.log("你赢了");
-                        alert('White wins!');
-                        store.commit("updateResult","win");
-                    }
-                },1000);
-                setTimeout(() => {
-                    store.commit("updateStatus","gamed");
-                
-                }, 1500);
-                
-            }
         }
 
         const startgame=()=>{
