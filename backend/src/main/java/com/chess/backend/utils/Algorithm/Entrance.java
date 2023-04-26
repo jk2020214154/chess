@@ -1,15 +1,13 @@
 package com.chess.backend.utils.Algorithm;
 
-//import java.util.Scanner;
+// import java.util.Scanner;
 
 import com.github.bhlangonijr.chesslib.move.Move;
 
 public class Entrance {
-    public static String fun(String args) {
-        String FEN = args;
-
-        //String FEN;
-        //FEN = scanner.nextLine();
+    public static String fun(String FEN) {
+        // String FEN;
+        // FEN = scanner.nextLine();
         Data.init(FEN);
         System.out.println(Data.board);
         Node root = new Node(Data.board);

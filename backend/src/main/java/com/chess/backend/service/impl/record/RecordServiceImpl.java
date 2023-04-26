@@ -1,9 +1,9 @@
-package com.chess.backend.service.impl.Record;
+package com.chess.backend.service.impl.record;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.chess.backend.mapper.RecordMapper;
 import com.chess.backend.pojo.Record;
 import com.chess.backend.service.user.Record.RecordService;
-import com.chess.backend.mapper.RecordMapper;
 import org.springframework.stereotype.Service;
 
 /**

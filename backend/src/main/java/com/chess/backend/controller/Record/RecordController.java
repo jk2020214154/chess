@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
+@ResponseBody
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/api/record")
 public class RecordController {
 
     @Resource
     private RecordService recordService;
 
-    @GetMapping("/list/{chessId}")
+    @GetMapping("/api/list/{chessId}")
     public BaseResponse<List<Record>> recordList(@PathVariable("chessId") int chessId) {
         QueryWrapper<Record> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("chess_id", chessId);

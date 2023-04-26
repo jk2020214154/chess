@@ -45,7 +45,7 @@ export default{
 
         const store=useStore();
         const jwt_token=localStorage.getItem("jwt_token");
-        const socketUrl=`ws://127.0.0.1:3000/websocket/${jwt_token}/`;
+        const socketUrl=`wss://chess.liaoy0103.top/websocket/${jwt_token}/`;
     
         let socket=null;
 
@@ -71,9 +71,7 @@ export default{
                 store.commit("updateTo",data.to);
                 //console.log(store.state.pk.from," ",store.state.pk.to);
                 
-                
                 makeMove(data.from,data.to);
-
                 store.commit("updateFen",boardAPI.value.getFen());
                 
                 
@@ -119,8 +117,8 @@ export default{
                 return ;
 
             if(from===null&&to===null)
-                return;
-
+                return ;
+            
 
             changecnt++;
 
@@ -138,7 +136,6 @@ export default{
                         fen: store.state.pk.fen,
                         id: store.state.user.id,
                 }));
-
                 //console.log(store.state.pk.fen);
                 //boardAPI.value.setPosition(store.state.pk.fen);
                 boardAPI.value.board.move(from, to);
@@ -146,7 +143,7 @@ export default{
                 //console.log(boardAPI.value.game.fen());
 
                 store.commit("updateFen",boardAPI.value.getFen());
-
+                
                 //console.log(store.state.pk.fen+"********");
 
                 //boardAPI.value.setPosition(store.state.pk.fen);
@@ -158,6 +155,8 @@ export default{
 
                 document.getElementById('operator').innerHTML="Operator:"+"White";
                 document.getElementById("operator").style.color="White";
+                //console.log(to);
+
                 //console.log(from,"  ",to,"-----2");
                 
                 boardAPI.value.board.move(from, to);
@@ -169,9 +168,8 @@ export default{
 
                 
                 store.commit("updateFen",boardAPI.value.getFen());
-
-                boardAPI.value.setPosition(store.state.pk.fen);
                 
+                boardAPI.value.setPosition(store.state.pk.fen);
 
                 //console.log("------"+store.state.pk.fen);
                 

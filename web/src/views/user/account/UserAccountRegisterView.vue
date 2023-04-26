@@ -43,7 +43,7 @@ export default{
         const register=()=>{
             error_message.value = "";
             $.ajax({
-                url: "http://localhost:3000/user/account/register/",
+                url: "https://chess.liaoy0103.top/api/user/account/register/",
                 type: "post",
                 data:{
                     username: username.value,
