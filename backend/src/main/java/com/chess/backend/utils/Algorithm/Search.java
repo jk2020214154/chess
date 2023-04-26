@@ -1,10 +1,11 @@
 package com.chess.backend.utils.Algorithm;
 
+import java.util.List;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
 import com.github.bhlangonijr.chesslib.move.Move;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 public class Search {
     private static Move select_checkmate_move(List<Node> children_board) {
         Move checkmate_move = null;

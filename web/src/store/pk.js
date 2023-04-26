@@ -31,7 +31,7 @@ export default{
         },
         updateResult(state,result){
             state.result=result;
-        }
+        },
     },
     actions:{
 
