@@ -1,10 +1,27 @@
 <template>
 
+
+
     <div class="start-board" v-if="$store.state.pk.status==='ungameing'">
         <div class="startgame_btn">
+            <label style="color: white; " >
+                难度选择:
+            </label>
+
+            <select id="difficulty" style="width: 100px;margin-left: 10px" >
+                <option value="1">难度1</option>
+                <option value="2">难度2</option>
+                <option value="3">难度3</option>
+                <option value="4">难度4</option>
+            </select>
+            <br>
+            <br>
             <button @click="startgame" type="button" class="btn btn-warning">
                 开始游戏
             </button>
+
+
+
         </div>
     </div>
 
@@ -12,7 +29,12 @@
         <TheChessboard @draw="handleDraw" ref="chessboardRef" @move="makeMove" @checkmate="handleCheckmate" @board-created="(api) => (boardAPI = api)" style="width: 400px;padding-top: 10px;" :board-config="boardConfig"  tabindex="0" />
         <h4 id="changecnt">Change Counter:0</h4>
         <h4 id="operator">Operator:White</h4>
-        
+        <div class="buttongroup" >
+            <button  @click = "resetgame" class="btn btn-primary" style="display:inline-block;margin:10px auto">重新开局</button>
+            <button  @click = "prevgame" class="btn btn-primary" style="display:inline-block;margin:10px auto">悔棋</button>
+            <button  @click = "falsegame" class="btn btn-primary" style="display:inline-block;margin:10px auto">认输</button>
+        </div>
+
         
     </div>
 
@@ -46,10 +68,15 @@ export default{
         const store=useStore();
         const jwt_token=localStorage.getItem("jwt_token");
         const socketUrl=`wss://chess.liaoy0103.top/websocket/${jwt_token}/`;
+
+
     
         let socket=null;
 
         let changecnt=0;
+
+
+        //console.log(selected_difficulty);
 
         const boardAPI = ref();
 
@@ -135,6 +162,7 @@ export default{
                     store.state.pk.socket.send(JSON.stringify({
                             fen: store.state.pk.fen,
                             id: store.state.user.id,
+                            difficulty: store.state.pk.difficulty,
                     }));
                     //console.log(store.state.pk.fen);
                     //boardAPI.value.setPosition(store.state.pk.fen);
@@ -206,21 +234,54 @@ export default{
                     }, 1500);
                     
                 }
-        },500);
+        },250);
 
 
 
         }
 
+
+
+
         const startgame=()=>{
             
             setTimeout(() => {
+                    var difficultys = document.getElementById("difficulty");
+                    var index = difficultys.selectedIndex;
+                    var selected_difficulty = difficultys.options[index].value;
                     store.commit("updateStatus","gameing");
+                    store.commit("updateDifficulty",selected_difficulty);
                     changecnt=0;
                 },200);
 
         }
 
+
+        const resetgame=()=>{
+            boardAPI.value.resetBoard();
+            changecnt=0;
+            document.getElementById('changecnt').innerHTML="Change Counter:"+changecnt;
+
+        };
+
+        const prevgame=()=>{
+            if(changecnt===0) return ;
+            boardAPI.value.undoLastMove();
+            changecnt--;
+            document.getElementById('changecnt').innerHTML="Change Counter:"+changecnt;
+
+            boardAPI.value.undoLastMove();
+            changecnt--;
+            document.getElementById('changecnt').innerHTML="Change Counter:"+changecnt;
+
+
+        };
+
+        const falsegame=()=>{
+            alert('Black wins!');
+            store.commit("updateResult","lose");
+            store.commit("updateStatus","gamed");
+        }
 
         const boardConfig = {
 
@@ -234,6 +295,9 @@ export default{
             handleDraw,
             makeMove,
             startgame,
+            resetgame,
+            prevgame,
+            falsegame,
         }
     }
 }
@@ -247,6 +311,7 @@ div.playground{
     width: 60vw;
     height: 80vh;
     margin: 40px auto;
+
 }
 
 div.gamemap{
@@ -311,6 +376,11 @@ div.startgame_btn{
     margin-top: 12vh;
     text-align: center;
 
+}
+div.buttongroup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

@@ -1,17 +1,18 @@
 package com.chess.backend.utils.Algorithm;
 
+import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.PieceType;
+import com.github.bhlangonijr.chesslib.Side;
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-
-import com.github.bhlangonijr.chesslib.Board;
-import com.github.bhlangonijr.chesslib.Side;
-import com.github.bhlangonijr.chesslib.PieceType;
 
 public class Data {
     public static Board board;
     public static Side side;
+
     public static int depth = 4;
     public static int width = 16;
     public static int pool_size = 16;
