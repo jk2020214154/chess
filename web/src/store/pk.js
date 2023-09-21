@@ -8,7 +8,6 @@ export default{
         to: "",
         pos:"",
         status: "ungameing",
-        difficulty: "1",
         result: "",
     },
     getters:{
@@ -32,9 +31,6 @@ export default{
         },
         updateResult(state,result){
             state.result=result;
-        },
-        updateDifficulty(state,difficulty){
-            state.difficulty=difficulty;
         },
     },
     actions:{

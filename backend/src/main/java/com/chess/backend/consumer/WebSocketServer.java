@@ -63,14 +63,14 @@ public class WebSocketServer {
         }
     }
 
-    public static void startGame(Integer userid,Integer difficulty) {
+    public static void startGame(Integer userid) {
         try {
 
             System.out.println("userid:"+userid);
             Entrance entrance=new Entrance();
 
 
-            String from_to=entrance.fun(data.getString("fen"),difficulty);
+            String from_to=entrance.fun(data.getString("fen"));
 
             String from=from_to.substring(0,2);
 
@@ -111,12 +111,10 @@ public class WebSocketServer {
         //System.out.println(data);
 
         Integer userid=null;
-        //System.out.println(data.getString("difficulty"));
 
         if(data.getString("id")!=null)
             userid=Integer.valueOf(data.getString("id"));
-        Integer difficulty=Integer.valueOf(data.getString("difficulty"));
-        startGame(userid,difficulty);
+        startGame(userid);
     }
 
     @OnError
