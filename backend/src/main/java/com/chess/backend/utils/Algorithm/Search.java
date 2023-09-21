@@ -36,7 +36,7 @@ public class Search {
         for(int depth = 1; depth <= Data.depth; depth++) {
             Thread.batch_run(root.children_board);
             //
-            int cut_depth = 1;
+            int cut_depth = depth - Data.leaf_depth;
             int cut_width = (int)Math.ceil(Data.width / Math.pow(2, depth - 1));
             cut_width = Math.max(cut_width, 3);
             Tree.cut_children_board(root, cut_depth, cut_width);

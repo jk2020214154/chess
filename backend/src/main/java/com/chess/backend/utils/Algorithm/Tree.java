@@ -30,7 +30,7 @@ public class Tree {
         node.set_score();
     }
     public static void cut_children_board(Node node, int depth, int width) {
-        if(depth > Data.depth || node.children_board.isEmpty()) {
+        if(depth < 0 || node.children_board.isEmpty()) {
             return ;
         }
         node.children_board = node.children_board.stream().sorted((i1, i2) -> Float.compare(i1.score, i2.score)).collect(Collectors.toList());
